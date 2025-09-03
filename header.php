@@ -1,10 +1,21 @@
-<nav id="menu">
-    <div class="element_menu">
-        <h3>Menu de navigation</h3>
-        <ul>
-            <li><a href="page1.html">Lien</a></li>
-            <li><a href="page2.html">Lien</a></li>
-            <li><a href="page3.html">Lien</a></li>
-        </ul>
+<!-- header.php -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.php">Site de Recettes</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.php">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.php">Contact</a>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

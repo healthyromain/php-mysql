@@ -1,37 +1,51 @@
+<!-- index.php -->
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Mon site de recettes</title>
-    </head>
- 
-    <body>
- 
-    <!-- L'en-tête -->
-    
-    <header>
-        <!-- Le menu -->
-
-        <?php include('header.php'); ?>
-
-    </header>
-    
-    <!-- Le corps -->
-    
-    <div id="corps">
-        <h1>Mon site de recettes</h1>
-                
-            <p>
-                Bienvenue sur mon site de recettes !
-            </p>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de recettes - Page d'accueil</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    <header class="bg-dark text-white p-3 mb-4">
+        <div class="container">
+            <?php include_once('header.php'); ?>
         </div>
-    
-    <!-- Le pied de page -->
-    
-    <footer id="pied_de_page">
-        <?php include('footer.php'); ?>
-        <p>Copyright moi, tous droits réservés</p>
+    </header>
+
+    <main class="container flex-grow-1">
+        <h1 class="mb-4 text-center">Bienvenue sur mon site de recettes </h1>
+
+        <!-- inclusion des variables et fonctions -->
+        <?php
+        include_once('variables.php');
+        include_once('functions.php');
+        ?>
+
+        <div class="row">
+            <?php foreach(getRecipes($recipes) as $recipe) : ?>
+                <div class="col-md-6 mb-4">
+                    <article class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h3 class="card-title"><?php echo $recipe['title']; ?></h3>
+                            <p class="card-text"><?php echo $recipe['recipe']; ?></p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Auteur : <?php echo displayAuthor($recipe['author'], $users); ?>
+                        </div>
+                    </article>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3 mt-auto">
+        <?php include_once('footer.php'); ?>
     </footer>
-    
-    </body>
+</body>
 </html>
