@@ -23,7 +23,7 @@
 
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="contact.php" method="post" class="card shadow-sm p-4">
+                <form action="submit_contact.php" method="get" class="card shadow-sm p-4">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="name" name="name" required>
