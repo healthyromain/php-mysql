@@ -23,7 +23,7 @@
 
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="submit_contact.php" method="get" class="card shadow-sm p-4">
+                <form action="submit_contact.php" method="post" class="card shadow-sm p-4">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="name" name="name" required>
@@ -41,13 +41,6 @@
 
                     <button type="submit" class="btn btn-primary w-100">Envoyer</button>
                 </form>
-
-                <!-- Message de confirmation -->
-                <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
-                    <div class="alert alert-success mt-3">
-                        Merci <?php echo htmlspecialchars($_POST['name']); ?>, votre message a bien été envoyé !
-                    </div>
-                <?php endif; ?>
             </div>
         </div>
     </main>
@@ -57,7 +50,7 @@
         <?php include_once('footer.php'); ?>
     </footer>
 
-    <!-- JS Bootstrap pour activer le menu hamburger -->
+    <!-- JS Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>
