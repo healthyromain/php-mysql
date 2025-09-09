@@ -1,4 +1,10 @@
 <!-- submit_contact.php -->
+<?php
+if (!isset($_GET['email']) || !isset($_GET['message'])) {
+    echo('<h1>Il faut un email et un message pour soumettre le formulaire.</h1>');
+    return;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
