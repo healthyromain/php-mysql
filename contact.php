@@ -23,20 +23,29 @@
 
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="submit_contact.php" method="post" class="card shadow-sm p-4">
+                <form action="submit_contact.php" method="POST" enctype="multipart/form-data" class="card shadow-sm p-4">
+                    <!-- Nom -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
 
+                    <!-- Email -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Adresse e-mail</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
 
+                    <!-- Message -->
                     <div class="mb-3">
                         <label for="message" class="form-label">Message</label>
                         <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                    </div>
+
+                    <!-- Upload de fichier -->
+                    <div class="mb-3">
+                        <label for="screenshot" class="form-label">Votre capture d'écran</label>
+                        <input type="file" class="form-control" id="screenshot" name="screenshot" />
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Envoyer</button>
@@ -50,7 +59,7 @@
         <?php include_once('footer.php'); ?>
     </footer>
 
-    <!-- JS Bootstrap -->
+    <!-- JS Bootstrap pour menu hamburger -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>
