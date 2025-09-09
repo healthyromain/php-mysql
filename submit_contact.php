@@ -8,6 +8,10 @@ if (
     echo('Il faut un email et un message valides pour soumettre le formulaire.');
     return;
 }
+
+$name = htmlspecialchars($_POST['name']);
+$email = htmlspecialchars($_POST['email']);
+$message = htmlspecialchars($_POST['message']);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,9 +33,9 @@ if (
         <div class="card shadow-sm mx-auto" style="max-width: 600px;">
             <div class="card-body">
                 <h5 class="card-title">Rappel de vos informations</h5>
-                <p class="card-text"><b>Nom</b> : <?php echo htmlspecialchars($_POST['name']); ?> </p>
-                <p class="card-text"><b>Email</b> : <?php echo htmlspecialchars($_POST['email']); ?> </p>
-                <p class="card-text"><b>Message</b> : <?php echo htmlspecialchars($_POST['message']); ?> </p>
+                <p class="card-text"><b>Nom</b> : <?php echo $name; ?> </p>
+                <p class="card-text"><b>Email</b> : <?php echo $email; ?> </p>
+                <p class="card-text"><b>Message</b> : <?php echo $message; ?> </p>
             </div>
         </div>
     </div>
