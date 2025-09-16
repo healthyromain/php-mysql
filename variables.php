@@ -24,27 +24,27 @@ $users = [
 $recipes = [
     [
         'title' => 'Cassoulet',
-        'recipe' => '',
+        'recipe' => 'Etape 1 : flageolets, Etape 2 : mijoter...',
         'author' => 'mickael.andrieu@exemple.com',
         'is_enabled' => true,
     ],
     [
         'title' => 'Couscous',
-        'recipe' => '',
+        'recipe' => 'Etape 1 : légumes, Etape 2 : semoule...',
         'author' => 'mickael.andrieu@exemple.com',
-        'is_enabled' => false,
+        'is_enabled' => true,
     ],
     [
         'title' => 'Escalope milanaise',
-        'recipe' => '',
+        'recipe' => 'Etape 1 : paner, Etape 2 : cuire...',
         'author' => 'mathieu.nebra@exemple.com',
         'is_enabled' => true,
     ],
     [
         'title' => 'Salade Romaine',
-        'recipe' => '',
+        'recipe' => 'Etape 1 : laver la salade...',
         'author' => 'laurene.castor@exemple.com',
-        'is_enabled' => false,
+        'is_enabled' => true,
     ],
 ];
 
