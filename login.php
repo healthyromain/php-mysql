@@ -1,12 +1,23 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: index.php"); // on recharge la page
+    exit;
+}
+
 if (isset($_POST['email']) && isset($_POST['password'])) {
     foreach ($users as $user) {
         if (
             $user['email'] === $_POST['email']
             && $user['password'] === $_POST['password']
         ) {
+            $_SESSION['LOGGED_USER'] = $user['email'];
             $loggedUser = ['email' => $user['email']];
-            break; // on sort de la boucle si trouvé
+            break;
         }
     }
 
@@ -17,6 +28,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             htmlspecialchars($_POST['password'])
         );
     }
+}
+
+if (isset($_SESSION['LOGGED_USER'])) {
+    $loggedUser = ['email' => $_SESSION['LOGGED_USER']];
 }
 ?>
 
@@ -75,4 +90,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     <div class="alert alert-success" role="alert">
         Bonjour <?php echo htmlspecialchars($loggedUser['email']); ?> et bienvenue sur le site !
     </div>
+
+    <!-- Bouton de déconnexion -->
+    <form action="index.php" method="POST">
+        <button type="submit" name="logout" class="btn btn-danger mt-2">Se déconnecter</button>
+    </form>
 <?php endif; ?>
