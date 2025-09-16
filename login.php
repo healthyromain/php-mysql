@@ -1,3 +1,4 @@
+<!-- login.php -->
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -5,7 +6,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
 if (isset($_POST['logout'])) {
     session_destroy();
-    header("Location: index.php"); // on recharge la page
+
+    setcookie('LOGGED_USER', '', time() - 3600, "", "", true, true);
+
+    header("Location: index.php");
     exit;
 }
 
@@ -17,6 +21,16 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         ) {
             $_SESSION['LOGGED_USER'] = $user['email'];
             $loggedUser = ['email' => $user['email']];
+
+            setcookie(
+                'LOGGED_USER',
+                $loggedUser['email'],
+                time() + 365 * 24 * 3600,
+                "",
+                "",
+                true,
+                true
+            );
             break;
         }
     }
@@ -33,11 +47,13 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 if (isset($_SESSION['LOGGED_USER'])) {
     $loggedUser = ['email' => $_SESSION['LOGGED_USER']];
 }
+elseif (isset($_COOKIE['LOGGED_USER'])) {
+    $loggedUser = ['email' => $_COOKIE['LOGGED_USER']];
+}
 ?>
 
 <?php if (!isset($loggedUser)): ?>
     <form action="index.php" method="POST" class="mb-4">
-        <!-- Affichage du message d'erreur -->
         <?php if (isset($errorMessage)): ?>
             <div class="alert alert-danger" role="alert">
                 <?php echo $errorMessage; ?>
@@ -78,11 +94,7 @@ if (isset($_SESSION['LOGGED_USER'])) {
     <script>
     function togglePassword() {
         const pwd = document.getElementById("password");
-        if (pwd.type === "password") {
-            pwd.type = "text";
-        } else {
-            pwd.type = "password";
-        }
+        pwd.type = (pwd.type === "password") ? "text" : "password";
     }
     </script>
 
@@ -91,7 +103,6 @@ if (isset($_SESSION['LOGGED_USER'])) {
         Bonjour <?php echo htmlspecialchars($loggedUser['email']); ?> et bienvenue sur le site !
     </div>
 
-    <!-- Bouton de déconnexion -->
     <form action="index.php" method="POST">
         <button type="submit" name="logout" class="btn btn-danger mt-2">Se déconnecter</button>
     </form>
