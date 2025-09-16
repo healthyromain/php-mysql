@@ -1,43 +1,45 @@
 <!-- submit_contact.php --> 
 <?php
-if (isset($_FILES['screenshot']) && $_FILES['screenshot']['error'] == 0) {
+// Récupération des champs du formulaire en sécurisant les données
+$name    = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
+$email   = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
+$message = isset($_POST['message']) ? htmlspecialchars($_POST['message']) : '';
 
-    if ($_FILES['screenshot']['size'] <= 1000000) {
+// Gestion de l'upload
+$uploadMessage = "";
 
-        $fileInfo = pathinfo($_FILES['screenshot']['name']);
-        $extension = strtolower($fileInfo['extension']);
-        $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
+if (isset($_FILES['upload']) && $_FILES['upload']['error'] !== UPLOAD_ERR_NO_FILE) {
+    if ($_FILES['upload']['error'] === UPLOAD_ERR_OK) {
+        // Dossier de destination (assure-toi qu'il existe et qu'il est accessible en écriture)
+        $uploadDir = __DIR__ . "/uploads/";
 
-        if (in_array($extension, $allowedExtensions)) {
-
-            if (!is_dir('uploads')) {
-                mkdir('uploads', 0755, true);
-            }
-
-            $counter = 1;
-            do {
-                $newFileName = $counter . '.' . $extension;
-                $destination = 'uploads/' . $newFileName;
-                $counter++;
-            } while (file_exists($destination));
-
-            if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $destination)) {
-                echo "L'envoi a bien été effectué sous le nom : $newFileName";
-            } else {
-                echo "Erreur lors de l'envoi du fichier.";
-            }
-
-        } else {
-            echo "Extension non autorisée.";
+        // Création du dossier s'il n'existe pas
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
         }
 
-    } else {
-        echo "Le fichier est trop volumineux (max 1 Mo).";
-    }
+        // Nom du fichier final
+        $uploadFile = $uploadDir . basename($_FILES['upload']['name']);
 
+        // Déplacement du fichier temporaire vers le dossier final
+        if (move_uploaded_file($_FILES['upload']['tmp_name'], $uploadFile)) {
+            $uploadMessage = "Fichier uploadé avec succès : " . htmlspecialchars($_FILES['upload']['name']);
+        } else {
+            $uploadMessage = "Erreur lors du déplacement du fichier.";
+        }
+    } else {
+        $uploadMessage = "Erreur lors de l'upload (code : " . $_FILES['upload']['error'] . ")";
+    }
 } else {
-    echo "Aucun fichier envoyé ou erreur lors de l'envoi.";
+    $uploadMessage = "Aucun fichier uploadé.";
 }
+
+// Affichage des résultats
+echo "<h2>Rappel de vos informations</h2>";
+echo "Nom : " . $name . "<br>";
+echo "Email : " . $email . "<br>";
+echo "Message : " . nl2br($message) . "<br>";
+echo "Upload : " . $uploadMessage . "<br>";
 ?>
 
 <!DOCTYPE html>
