@@ -116,8 +116,13 @@ session_start();
                                     <?php echo htmlspecialchars(substr($recipe['recipe'], 0, 120)) . '...'; ?>
                                 </p>
                             </div>
-                            <div class="card-footer text-muted">
-                                Auteur : <?php echo displayAuthor($recipe['author'], $users); ?>
+                            <div class="card-footer d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    Auteur : <?php echo displayAuthor($recipe['author'], $users); ?>
+                                </small>
+                                <a href="edit_recette.php?id=<?php echo $recipe['recipe_id']; ?>" class="btn btn-sm btn-warning">
+                                    ✏️ Modifier
+                                </a>
                             </div>
                         </article>
                     </div>
