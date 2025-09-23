@@ -4,7 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Déconnexion
 if (isset($_POST['logout'])) {
     session_destroy();
     setcookie('LOGGED_USER', '', time() - 3600, "", "", true, true);
@@ -12,7 +11,6 @@ if (isset($_POST['logout'])) {
     exit;
 }
 
-// Connexion
 if (!empty($_POST['email']) && !empty($_POST['password'])) {
     foreach ($users as $user) {
         if (
@@ -44,7 +42,6 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
     }
 }
 
-// Vérification session ou cookie
 if (isset($_SESSION['LOGGED_USER'])) {
     $loggedUser = ['email' => $_SESSION['LOGGED_USER']];
 } elseif (isset($_COOKIE['LOGGED_USER'])) {
