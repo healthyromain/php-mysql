@@ -53,10 +53,16 @@ session_start();
 
     <!-- Main -->
     <main class="container flex-grow-1">
-        <!-- inclusion des variables et fonctions -->
+        <!-- inclusion des fonctions et connexion -->
         <?php
-        include_once('variables.php');
         include_once('functions.php');
+        include_once('mysql.php'); // connexion PDO
+
+        // Charger les utilisateurs depuis MySQL
+        $sqlUsers = 'SELECT * FROM users';
+        $usersStatement = $db->prepare($sqlUsers);
+        $usersStatement->execute();
+        $users = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
         ?>
 
         <?php include_once('login.php'); ?>
@@ -66,6 +72,14 @@ session_start();
             <h1>Bienvenue sur mon site de recettes</h1>
             <p>Découvrez et partagez des recettes gourmandes avec la communauté !</p>
         </section>
+
+        <?php
+        // Charger les recettes valides depuis MySQL
+        $sqlQuery = 'SELECT * FROM recipes WHERE is_enabled = 1';
+        $recipesStatement = $db->prepare($sqlQuery);
+        $recipesStatement->execute();
+        $recipes = $recipesStatement->fetchAll(PDO::FETCH_ASSOC);
+        ?>
 
         <?php if (isset($loggedUser)): ?>
             <div class="alert alert-success d-flex flex-column align-items-center" role="alert">
@@ -91,16 +105,12 @@ session_start();
                 <?php foreach (getRecipes($userRecipes) as $recipe): ?>
                     <div class="col-md-6 col-lg-4 mb-4">
                         <article class="card shadow-sm h-100">
-                            <!--
-                            <img src="https://source.unsplash.com/600x400/?food,recipe"
-                                 class="card-img-top" alt="Image recette">
-                            -->
                             <div class="card-body">
                                 <h3 class="card-title h5">
-                                    <?php echo $recipe['title']; ?>
+                                    <?php echo htmlspecialchars($recipe['title']); ?>
                                 </h3>
                                 <p class="card-text text-muted">
-                                    <?php echo substr($recipe['recipe'], 0, 120) . '...'; ?>
+                                    <?php echo htmlspecialchars(substr($recipe['recipe'], 0, 120)) . '...'; ?>
                                 </p>
                             </div>
                             <div class="card-footer text-muted">

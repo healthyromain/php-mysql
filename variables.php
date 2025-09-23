@@ -21,7 +21,7 @@ $users = [
     ],
 ];
 
-$recipes = [
+/*$recipes = [
     [
         'title' => 'Cassoulet',
         'recipe' => 'Etape 1 : flageolets, Etape 2 : mijoter...',
@@ -46,6 +46,6 @@ $recipes = [
         'author' => 'laurene.castor@exemple.com',
         'is_enabled' => true,
     ],
-];
+];*/
 
 ?>
