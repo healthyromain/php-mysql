@@ -79,6 +79,11 @@ session_start();
             <p>Découvrez et partagez des recettes gourmandes avec la communauté !</p>
         </section>
 
+        <!-- Message après suppression -->
+        <?php if (isset($_GET['msg']) && $_GET['msg'] === 'deleted'): ?>
+            <div class="alert alert-success text-center">Recette supprimée avec succès 🗑️</div>
+        <?php endif; ?>
+
         <?php if (isset($loggedUser)): ?>
             <div class="alert alert-success d-flex flex-column align-items-center" role="alert">
                 <p class="mb-2">
@@ -120,9 +125,16 @@ session_start();
                                 <small class="text-muted">
                                     Auteur : <?php echo displayAuthor($recipe['author'], $users); ?>
                                 </small>
-                                <a href="edit_recette.php?id=<?php echo $recipe['recipe_id']; ?>" class="btn btn-sm btn-warning">
-                                    ✏️ Modifier
-                                </a>
+                                <div>
+                                    <a href="edit_recette.php?id=<?php echo $recipe['recipe_id']; ?>" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                    <a href="delete_recette.php?id=<?php echo $recipe['recipe_id']; ?>"
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Voulez-vous vraiment supprimer cette recette ?');">
+                                        🗑️ Supprimer
+                                    </a>
+                                </div>
                             </div>
                         </article>
                     </div>

@@ -1,4 +1,3 @@
-<!-- ajout_recette.php -->
 <?php
 session_start();
 include_once('mysql.php');
@@ -16,7 +15,7 @@ $message = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
     $recipe = trim($_POST['recipe']);
-    $author = $_SESSION['LOGGED_USER']['email'];
+    $author = $_SESSION['LOGGED_USER'];  // ✅ correction ici
 
     // Vérifier que les champs ne sont pas vides
     if ($title === '' || $recipe === '') {
