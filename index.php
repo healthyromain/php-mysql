@@ -63,6 +63,12 @@ session_start();
         $usersStatement = $db->prepare($sqlUsers);
         $usersStatement->execute();
         $users = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
+
+        // Charger les recettes valides depuis MySQL
+        $sqlQuery = 'SELECT * FROM recipes WHERE is_enabled = 1';
+        $recipesStatement = $db->prepare($sqlQuery);
+        $recipesStatement->execute();
+        $recipes = $recipesStatement->fetchAll(PDO::FETCH_ASSOC);
         ?>
 
         <?php include_once('login.php'); ?>
@@ -72,14 +78,6 @@ session_start();
             <h1>Bienvenue sur mon site de recettes</h1>
             <p>Découvrez et partagez des recettes gourmandes avec la communauté !</p>
         </section>
-
-        <?php
-        // Charger les recettes valides depuis MySQL
-        $sqlQuery = 'SELECT * FROM recipes WHERE is_enabled = 1';
-        $recipesStatement = $db->prepare($sqlQuery);
-        $recipesStatement->execute();
-        $recipes = $recipesStatement->fetchAll(PDO::FETCH_ASSOC);
-        ?>
 
         <?php if (isset($loggedUser)): ?>
             <div class="alert alert-success d-flex flex-column align-items-center" role="alert">
@@ -91,6 +89,11 @@ session_start();
                         Se déconnecter
                     </button>
                 </form>
+            </div>
+
+            <!-- Lien pour ajouter une recette -->
+            <div class="text-center mb-4">
+                <a href="ajout_recette.php" class="btn btn-success">➕ Ajouter une recette</a>
             </div>
 
             <h2 class="mb-4 text-center">Mes recettes</h2>
